@@ -8,18 +8,27 @@ const {Server} = require("socket.io");
 const app = express();
 
 
-app.use(cors());
+// app.use(cors());
 
 
 const server = http.createServer(app);
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://your-frontend.vercel.app",
+];
 
+app.use(
+  cors({
+    origin: allowedOrigins,
+  })
+);
 
-const io = new Server(server,{
-
-    cors:{
-    origin:"https://YOUR-FRONTEND.vercel.app"
- }
+const io = new Server(server, {
+  cors: {
+    origin: allowedOrigins,
+    methods: ["GET", "POST"],
+  },
 });
 
 
